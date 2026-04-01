@@ -1,0 +1,21 @@
+bug 1
+
+Nu exista size limit pentru cache, iar memoria nu este eliberata, aceasta creste pana cand serviciul crapa, deoarece vin foarte multe request-uri si queue ul creste fara sa aibe vreo limita, aplicatia tot adauga raspunsuri in cache, dar nu sterge niciodata nimic din el
+
+Fix: 
+	Limita pt cache
+	Regula pt a sterge intrarile vechi (atunci cand se umple putem sterge cea mai veche sau cea mai putin folosita intrare)
+	limita pt queue
+
+Pseudocode:
+
+SHARED STATE:
+    cache = new Cache(max_size = 1000)
+    request_queue = new Queue(max_size = 500)
+
+....
+function receive_request(request):
+	if request_queue.size() >= request_queue.max_size:
+		return "Queue full, try again later"
+
+	request_queue.enqueue(request)

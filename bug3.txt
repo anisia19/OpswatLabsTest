@@ -1,0 +1,14 @@
+bug 3
+
+Cheia pentru cache include doar prompt_hash, dar ar trebui sa includa si model_verision
+
+// Raspunsul depinde si de model_version deci ar trebui inclus, deoarece putem ajunge usor in cazul in care se returneaza raspunsul facut cu un model vechi
+hash = compute_hash(prompt)
+
+Fix:
+	Includem modelul in cheie
+	Invalidam cache ul 
+
+Pseudocode
+
+key = compute_hash(prompt + model_version)

@@ -1,0 +1,9 @@
+bug 2
+
+request-urile dublicate
+Ar trebui sa tinem evidenta req aflate in proces, pentru a ne asigura ca nu trimitem req duplocate
+Cache ul ajuta doar dupa ce primul req e terminat si pus in cheie, -> BE incarcat inutil
+Fix: 
+	Primul req cheama LLM-ul
+	Restul req asteapta rezultatul lui, gen stiu deja ca acel request e deja in lucru, un fel de WIP state
+

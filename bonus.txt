@@ -1,0 +1,9 @@
+bonus
+
+Legat de latency, daca acesta creste extrem de mult rezultatul e in timeout-uri la clienti
+Problema principala este ca sistemul are un singur consumer, care proceseaza cererile secvential, ceea ce duce la aparitia unui bottleneck in cazul unui volum mare de requesturi. O imbunatatire ar fi procesarea in paralel folosind mai multi workeri. Also, as introduce o limita pentru coada, pentru a preveni supraincarcarea sistemului. De asemenea, pentru eficienta, as grupa cererile similare in batch-uri, reducand astfel numarul de apeluri catre backend
+Totusi, avem resurse limitate, in special de GPU-uri, deci si asta ar fi un aspect la care sa ne gandim in contextul unui LLM
+
+Si o intrebare ar fi: se permite user-ului sa ruleze mai multe modele? If so, se poate batch-ui per model, ca sa nu se piarda prea mult timp pe GPU unloading si loading cu noul model.
+
+O alta varianta ar fi sa se treaca pe un model mai rapid (cu mai putini parametrii), reducerea context size-ului, rate limiting users, so they don't send 1000 requests, serving paying users first, etc.
